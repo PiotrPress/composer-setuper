@@ -1,0 +1,264 @@
+{
+    "$schema": "https://json-schema.org/draft-04/schema#",
+    "oneOf": [
+        {
+            "type": "object",
+            "required": [ "action", "message" ],
+            "properties": {
+                "event": { "type": "string" },
+                "priority": { "type": "integer" },
+                "action": { "type": "string", "enum": [ "write" ] },
+                "message": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] },
+                "verbose": { "type": "string", "enum": [ "quiet", "normal", "verbose", "very_verbose", "debug" ] }
+            },
+            "additionalProperties": false
+        },
+        {
+            "type": "object",
+            "required": [ "action", "variable", "value" ],
+            "properties": {
+                "event": { "type": "string" },
+                "priority": { "type": "integer" },
+                "action": { "type": "string", "enum": [ "set" ] },
+                "variable": { "$ref": "#/definitions/variable" },
+                "value": {}
+            },
+            "additionalProperties": false
+        },
+        {
+            "type": "object",
+            "required": [ "action", "message", "variable" ],
+            "properties": {
+                "event": { "type": "string" },
+                "priority": { "type": "integer" },
+                "action": { "type": "string", "enum": [ "insert" ] },
+                "message": { "type": "string" },
+                "variable": { "$ref": "#/definitions/variable" },
+                "required": { "type": "boolean" },
+                "validator": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] },
+                "default": { "type": "string" }
+            },
+            "additionalProperties": false
+        },
+        {
+            "type": "object",
+            "required": [ "action", "message", "variable" ],
+            "properties": {
+                "event": { "type": "string" },
+                "priority": { "type": "integer" },
+                "action": { "type": "string", "enum": [ "secret" ] },
+                "message": { "type": "string" },
+                "variable": { "$ref": "#/definitions/variable" }
+            },
+            "additionalProperties": false
+        },
+        {
+            "type": "object",
+            "required": [ "action", "message", "variable", "choices" ],
+            "properties": {
+                "event": { "type": "string" },
+                "priority": { "type": "integer" },
+                "action": { "type": "string", "enum": [ "select" ] },
+                "message": { "type": "string" },
+                "variable": { "$ref": "#/definitions/variable" },
+                "choices": { "type": { "$ref": "#/definitions/stringArray" } },
+                "default": { "type": "integer" },
+                "error": { "type": "string" },
+                "multiple": { "type": "boolean" }
+            },
+            "additionalProperties": false
+        },
+        {
+            "type": "object",
+            "required": [ "action", "message", "variable" ],
+            "properties": {
+                "event": { "type": "string" },
+                "priority": { "type": "integer" },
+                "action": { "type": "string", "enum": [ "confirm" ] },
+                "message": { "type": "string" },
+                "variable": { "$ref": "#/definitions/variable" },
+                "default": { "type": "boolean" }
+            },
+            "additionalProperties": false
+        },
+        {
+            "type": "object",
+            "required": [ "action", "path" ],
+            "properties": {
+                "event": { "type": "string" },
+                "priority": { "type": "integer" },
+                "action": { "type": "string", "enum": [ "directory" ] },
+                "path": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] }
+            },
+            "additionalProperties": false
+        },
+        {
+            "type": "object",
+            "required": [ "action", "source", "target" ],
+            "properties": {
+                "event": { "type": "string" },
+                "priority": { "type": "integer" },
+                "action": { "type": "string", "enum": [ "symlink" ] },
+                "source": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] },
+                "target": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] }
+            },
+            "additionalProperties": false
+        },
+        {
+            "type": "object",
+            "required": [ "action", "source", "target" ],
+            "properties": {
+                "event": { "type": "string" },
+                "priority": { "type": "integer" },
+                "action": { "type": "string", "enum": [ "rename" ] },
+                "source": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] },
+                "target": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] }
+            },
+            "additionalProperties": false
+        },
+        {
+            "type": "object",
+            "required": [ "action", "source", "target" ],
+            "properties": {
+                "event": { "type": "string" },
+                "priority": { "type": "integer" },
+                "action": { "type": "string", "enum": [ "copy" ] },
+                "source": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] },
+                "target": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] }
+            },
+            "additionalProperties": false
+        },
+        {
+            "type": "object",
+            "required": [ "action", "source", "target" ],
+            "properties": {
+                "event": { "type": "string" },
+                "priority": { "type": "integer" },
+                "action": { "type": "string", "enum": [ "move" ] },
+                "source": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] },
+                "target": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] }
+            },
+            "additionalProperties": false
+        },
+        {
+            "type": "object",
+            "required": [ "action", "source", "target" ],
+            "properties": {
+                "event": { "type": "string" },
+                "priority": { "type": "integer" },
+                "action": { "type": "string", "enum": [ "remove" ] },
+                "source": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] },
+                "target": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] }
+            },
+            "additionalProperties": false
+        },
+        {
+            "type": "object",
+            "required": [ "action", "path", "owner" ],
+            "properties": {
+                "event": { "type": "string" },
+                "priority": { "type": "integer" },
+                "action": { "type": "string", "enum": [ "owner" ] },
+                "path": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] },
+                "owner": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] }
+            },
+            "additionalProperties": false
+        },
+        {
+            "type": "object",
+            "required": [ "action", "path", "group" ],
+            "properties": {
+                "event": { "type": "string" },
+                "priority": { "type": "integer" },
+                "action": { "type": "string", "enum": [ "group" ] },
+                "path": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] },
+                "group": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] }
+            },
+            "additionalProperties": false
+        },
+        {
+            "type": "object",
+            "required": [ "action", "path", "mode" ],
+            "properties": {
+                "event": { "type": "string" },
+                "priority": { "type": "integer" },
+                "action": { "type": "string", "enum": [ "mode" ] },
+                "path": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] },
+                "mode": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] }
+            },
+            "additionalProperties": false
+        },
+        {
+            "type": "object",
+            "required": [ "action", "file", "content" ],
+            "properties": {
+                "event": { "type": "string" },
+                "priority": { "type": "integer" },
+                "action": { "type": "string", "enum": [ "append" ] },
+                "file": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] },
+                "content": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] }
+            },
+            "additionalProperties": false
+        },
+        {
+            "type": "object",
+            "required": [ "action", "file", "content" ],
+            "properties": {
+                "event": { "type": "string" },
+                "priority": { "type": "integer" },
+                "action": { "type": "string", "enum": [ "dump" ] },
+                "file": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] },
+                "content": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] }
+            },
+            "additionalProperties": false
+        },
+        {
+            "type": "object",
+            "required": [ "action", "from", "to" ],
+            "properties": {
+                "event": { "type": "string" },
+                "priority": { "type": "integer" },
+                "action": { "type": "string", "enum": [ "copy" ] },
+                "from": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] },
+                "to": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] }
+            },
+            "additionalProperties": false
+        },
+        {
+            "type": "object",
+            "required": [ "action", "path" ],
+            "properties": {
+                "event": { "type": "string" },
+                "priority": { "type": "integer" },
+                "action": { "type": "string", "enum": [ "remove" ] },
+                "path": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] }
+            },
+            "additionalProperties": false
+        },
+        {
+            "type": "object",
+            "required": [ "action", "pattern", "replace", "file" ],
+            "properties": {
+                "event": { "type": "string" },
+                "priority": { "type": "integer" },
+                "action": { "type": "string", "enum": [ "replace" ] },
+                "pattern": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] },
+                "replace": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] },
+                "file": { "type": [ "string", { "$ref": "#/definitions/stringArray" } ] }
+            },
+            "additionalProperties": false
+        }
+    ],
+    "definitions": {
+        "variable": {
+            "type": "string",
+            "pattern": "^[a-zA-Z_\\x80-\\xff][a-zA-Z0-9_\\x80-\\xff]+$"
+        },
+        "stringArray": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 1,
+            "uniqueItems": true
+        }
+    }
+}
