@@ -17,6 +17,6 @@
   "extra": { "class": "PiotrPress\\Composer\\Setuper\\Plugin" },
   "autoload": {
     "psr-4": { "PiotrPress\\Composer\\Setuper\\": "src/" },
-    "classmap": "src/"
+    "classmap": [ "src" ]
   }
 }
